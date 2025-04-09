@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql/mysql-server:8.0
+    container_name: mysql-dialect-deadlock-test
+    restart: always
+    command: --authentication-policy=mysql_native_password
+    environment:
+      MYSQL_DATABASE: testdb
+      MYSQL_ROOT_PASSWORD: testpassword
+      MYSQL_ROOT_HOST: '%'
+    ports:
+      - '3307:3306'
