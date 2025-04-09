@@ -12,9 +12,9 @@ A custom MySQL dialect for [Kysely](https://kysely.dev/) that automatically retr
 ## Installation
 
 ```bash
-npm install kysely-mysql-deadlock-retries
+npm install mysql-dialect-with-deadlock
 # or
-pnpm add kysely-mysql-deadlock-retries
+pnpm add mysql-dialect-with-deadlock
 ```
 
 ## Usage
@@ -22,7 +22,7 @@ pnpm add kysely-mysql-deadlock-retries
 ```typescript
 import { Kysely } from 'kysely'
 import { createPool } from 'mysql2'
-import { MySQLDialectWithDeadlockRetries } from 'kysely-mysql-deadlock-retries'
+import { MySQLDialectWithDeadlockRetries } from 'mysql-dialect-with-deadlock'
 
 const db = new Kysely({
   dialect: new MySQLDialectWithDeadlockRetries({
