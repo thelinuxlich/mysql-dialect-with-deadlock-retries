@@ -146,7 +146,7 @@ class MysqlConnectionWithDeadlockRetries {
     }
   }
   async *streamQuery(compiledQuery, _chunkSize) {
-    const stream = __privateGet(this, _rawConnection).query(compiledQuery.sql, compiledQuery.parameters).stream({
+    const stream = __privateGet(this, _rawConnection).query(compiledQuery.sql, [...compiledQuery.parameters]).stream({
       objectMode: true
     });
     try {
@@ -174,7 +174,7 @@ executeQuery_fn = function(compiledQuery, options) {
   return new Promise((resolve, reject) => {
     __privateGet(this, _rawConnection).query(
       compiledQuery.sql,
-      compiledQuery.parameters,
+      [...compiledQuery.parameters],
       (err, result) => {
         if (err) {
           if (typeof err === "object" && err !== null && "code" in err && // @ts-ignore
@@ -190,7 +190,7 @@ executeQuery_fn = function(compiledQuery, options) {
                   (innerResolve, innerReject) => {
                     __privateGet(this, _rawConnection).query(
                       compiledQuery.sql,
-                      compiledQuery.parameters,
+                      [...compiledQuery.parameters],
                       (innerErr, innerResult) => {
                         if (innerErr) {
                           innerReject(innerErr);

@@ -229,7 +229,7 @@ class MysqlConnectionWithDeadlockRetries implements DatabaseConnection {
     return new Promise((resolve, reject) => {
       this.#rawConnection.query(
         compiledQuery.sql,
-        compiledQuery.parameters,
+        [...compiledQuery.parameters],
         (err, result) => {
           if (err) {
             if (
@@ -252,7 +252,7 @@ class MysqlConnectionWithDeadlockRetries implements DatabaseConnection {
                     (innerResolve, innerReject) => {
                       this.#rawConnection.query(
                         compiledQuery.sql,
-                        compiledQuery.parameters,
+                        [...compiledQuery.parameters],
                         (innerErr, innerResult) => {
                           if (innerErr) {
                             innerReject(innerErr)
@@ -281,7 +281,7 @@ class MysqlConnectionWithDeadlockRetries implements DatabaseConnection {
     _chunkSize: number,
   ): AsyncIterableIterator<QueryResult<O>> {
     const stream = this.#rawConnection
-      .query(compiledQuery.sql, compiledQuery.parameters)
+      .query(compiledQuery.sql, [...compiledQuery.parameters])
       .stream<O>({
         objectMode: true,
       })
